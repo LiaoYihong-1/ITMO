@@ -1,0 +1,164 @@
+import math
+
+import matplotlib.pyplot as plt
+import numpy as np
+N = 20
+sum = 0
+average = 0
+all_num = [0.41, 1.63, -1.53, -0.2, 0.85, 0.09, 1.54, 0.25, 1.24, -0.26,
+           1.08, 0.42, -0.92, -0.91, 1.15, -0.82, 0.26, 0.96, 1.57, 0.72]
+all_num.sort()
+dictionary = {}
+sorted_string = "[ "
+for i in all_num:
+    dictionary[i] = 0
+for i in all_num:
+    if i in dictionary:
+        a = dictionary[i]
+        a = a + 1
+        dictionary[i] = a
+    else:
+        dictionary[i] = 1
+for i in sorted(dictionary):
+    sum = sum + i
+    dictionary[i] = dictionary[i]/20
+    sorted_string = sorted_string + str(i) + " "
+average = sum/20
+sorted_string = sorted_string + "]"
+print("Вариационный ряд:")
+print(sorted_string)
+print("Максимальное значение:")
+print(all_num[19])
+print("Минимальное значение:")
+print(all_num[0])
+print("Размах выборки:")
+gap = all_num[19] - all_num[0]
+print(gap)
+print("Таблица частот:")
+for i in sorted(dictionary):
+    print("|%.2f" % i, end="")
+print("|")
+frequences = []
+for i in sorted(dictionary):
+    frequence = dictionary[i]
+    frequences.append(frequence)
+    if i >= 0:
+        print("|%.2f" % frequence, end="")
+    else:
+        print("|%.3f" % frequence, end="")
+print("|")
+print("Математическое ожидание:")
+math_exp = 0
+for i in dictionary:
+    math_exp = math_exp + i*dictionary[i]
+print(math_exp)
+print("Среднеквадратическое отклонение:")
+standard_deviation = 0
+for i in dictionary:
+    standard_deviation = standard_deviation + (i-average)**2*dictionary[i]
+fixed = N*standard_deviation/(N-1)
+fixed = fixed**0.5
+standard_deviation = standard_deviation**0.5
+print("%.4f" % standard_deviation)
+print("Исправленныое среднеквадратическое отклонение:")
+print("%.4f" % fixed)
+print("Эмпирическая функция распределения:")
+sum_frequence = 0
+count = 0
+while count < len(dictionary):
+    if count == 0:
+        print(" F(x)=%.2f, x<=%.2f"%(sum_frequence,all_num[count]))
+        sum_frequence = sum_frequence + frequences[count]
+        count = count + 1
+    else:
+        print(" F(x)=%.2f, %.2f<x<=%.2f"%(sum_frequence,all_num[count-1],all_num[count]))
+        sum_frequence = sum_frequence + frequences[count]
+        count=count+1
+        if count == len(dictionary):
+            print(" F(x)=%.2f, x>%.2f" % (sum_frequence, all_num[count-1]))
+print("Какую графику в хотите?:")
+print("1)Гистограмму приведенных частот группированной выборки")
+print("2)Полигон приведенных частот группированной выборки")
+print("3)Графику эмпирической функции распределения")
+## dived into group
+choice = input()
+if choice == "1":
+    n = max(all_num) - min(all_num)
+    h = round(n/(1+math.log2(N)),3)
+    print("значение h:%.2f"% h)
+    x_min = round(min(all_num)-h/2,3)
+    start = x_min
+    internals_x = []
+    internals_y = []
+    while start < max(all_num):
+        temp = start
+        start = start + h
+        internals_x.append(round(temp, 3))
+        internals_y.append(round(start, 3))
+    dictionary_xy = {}
+    for i in all_num:
+        internals_amount = len(internals_x)
+        while internals_amount > 0:
+            internals_amount = internals_amount - 1
+            if i < internals_y[internals_amount] and i >= internals_x[internals_amount]:
+                s = "[" + str(round(internals_x[internals_amount], 2)) + "," + str(
+                    round(internals_y[internals_amount], 2)) + ")"
+                if s not in dictionary_xy:
+                    dictionary_xy[s] = 0.05
+                else:
+                    dictionary_xy[s] = dictionary_xy[s] + 0.05
+                break
+    bar_x = []
+    bar_y = []
+    for i in dictionary_xy:
+        bar_x.append(i)
+        bar_y.append(dictionary_xy[i])
+    plt.xticks(size=8)
+    for a,b in zip(bar_x,bar_y):
+        plt.text(a,b+0.005,'%.2f'%b,ha='center',va='bottom',fontsize=10)
+    plt.bar(bar_x, bar_y)
+    plt.ylim(0,max(bar_y)+0.1)
+    plt.show()
+elif choice=="2":
+    x_s = []
+    y_s = []
+    for i in dictionary:
+        x_s.append(i)
+        y_s.append(dictionary[i])
+    plt.plot(x_s,y_s)
+    plt.plot(x_s,y_s,'o',markersize=3)
+    plt.show()
+elif choice=="3":
+    dictionary_exp = dictionary.copy()
+    for i in dictionary_exp:
+        for j in dictionary:
+            if i > j:
+                dictionary_exp[i] = round(dictionary_exp[i] + dictionary[j],2)
+    count = 0
+    array_x = []
+    array_y = []
+    for i in dictionary_exp:
+        array_x.append(i)
+        array_y.append(dictionary_exp[i])
+    axis_x = []
+    axis_y = []
+    while count < len(array_x):
+        if count != len(array_x)-1:
+            axis_x.append(array_x[count])
+            axis_x.append(array_x[count+1])
+            axis_y.append(array_y[count])
+            axis_y.append(array_y[count])
+            plt.plot(array_x[count+1],array_y[count],'o',color="black",markersize=2)
+            plt.plot(axis_x,axis_y,color="blue")
+            plt.text(array_x[count],array_y[count],str(array_y[count]),fontsize=10,verticalalignment="bottom")
+        else:
+            axis_x.append(array_x[count])
+            axis_x.append(array_x[count]+0.2)
+            axis_y.append(array_y[count])
+            axis_y.append(array_y[count])
+            plt.text(array_x[count],array_y[count],str(array_y[count]),fontsize=10,verticalalignment="bottom")
+            plt.plot(axis_x,axis_y,color="blue")
+        axis_x.clear()
+        axis_y.clear()
+        count = count+1
+    plt.show()

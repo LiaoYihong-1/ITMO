@@ -1,0 +1,42 @@
+    start = x_min
+    internals_x = []
+    internals_y = []
+    while start < max(all_num):
+        temp = start
+        start = start + h
+        internals_x.append(round(temp, 3))
+        internals_y.append(round(start, 3))
+    dictionary_xy = {}
+    for i in all_num:
+        internals_amount = len(internals_x)
+        while internals_amount > 0:
+            internals_amount = internals_amount - 1
+            if i < internals_y[internals_amount] and i >= internals_x[internals_amount]:
+                s = "[" + str(round(internals_x[internals_amount], 2)) + "," + str(
+                    round(internals_y[internals_amount], 2)) + ")"
+                if s not in dictionary_xy:
+                    dictionary_xy[s] = 0.05
+                else:
+                    dictionary_xy[s] = dictionary_xy[s] + 0.05
+                break
+    bar_x = []
+    bar_y = []
+    for i in dictionary_xy:
+        bar_x.append(i)
+        bar_y.append(dictionary_xy[i])
+    plt.xticks(size=8)
+    for a,b in zip(bar_x,bar_y):
+        plt.text(a,b+0.005,'%.2f'%b,ha='center',va='bottom',fontsize=10)
+    plt.bar(bar_x, bar_y)
+    plt.ylim(0,max(bar_y)+0.1)
+    plt.show()
+
+    x_min = round(min(all_num)-h/2,3)
+    bins = []
+    bins.append(round(x_min,3))
+    start = x_min
+    while start < max(all_num):
+        temp = start
+        start = start + h
+        bins.append(round(start,3))
+    plt.hist(all_num, bins=bins,rwidth=0.9)

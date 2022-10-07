@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Студент: Ляо Ихун P3211 11013 </title>
+    <link rel="stylesheet" type="text/css" href="Style.css">
+</head>
+<body>
+
+<script>
+    /**
+     * check date before sending
+     * @returns {boolean}
+     */
+    function check(){
+        let value = document.getElementById("valueOfY").value;
+        let R = document.getElementsByName("R[]");
+        let x = document.getElementsByName("x");
+        if(isNaN(value) || value === null || value ===""){
+            alert("Make sure that you enter a number for y");
+            return false;
+        }
+        if(parseInt(value) < 3 && parseInt(value) > -5){
+            let checkR = false;
+            for(let i = 0; i< R.length; i++){
+                if(R.item(i).checked === true){
+                    checkR = true;
+                }
+            }
+            if(!checkR){
+                alert("Choose at least one value for R");
+                return false;
+            }
+
+            let checkX = false;
+            for(let k = 0;  k<x.length ; k++){
+                if(x.item(k).checked === true){
+                    checkX = true;
+                }
+            }
+            if(!checkX){
+                alert("Choose value for x");
+                return false;
+            }else {
+                return true;
+            }
+        }
+        else{
+            alert("Make sure value of y in range from -5 to 3(don't contain boundary)");
+            return false;
+        }
+    }
+
+    //send date , including form by POST. At the same time, XMLHttpRequest(Ajax) allows that won't open a new windows.
+    function sendAll(){
+        let allRight = check();
+        let form = document.getElementById("form1");
+        let form_data = new FormData(form);
+        if(allRight){
+            let request =new XMLHttpRequest();
+            request.open("POST","ph.php",true);//asynchronous
+            request.send(form_data);
+            request.onreadystatechange = function()
+            {
+                /*
+                    make sure that asynchronous
+                    when state changed, this function will be called
+                */
+                if(request.readyState === 4 && request.status === 200) {
+                    let origin =document.getElementById("result").innerHTML;
+                    document.getElementById("result").innerHTML = origin+request.responseText;
+                }
+            };
+        }
+
+    }
+
+</script>
+
+<h1 class = "hate">
+    <p>Студент: Ляо Ихун  P3211 <br> Вариант: 11013</p>
+</h1>
+
+<h2>
+    Lab 1
+</h2>
+<form id = "form1" method = "post"  >
+    <div class = "wrapper">
+        <!--first choose(can more than one)-->
+        <div class = "choice1">
+            <p>
+                Please choose value of R<span class = "required">*</span>:<br>
+                <input type = checkbox value = "1" name = "R[]">1<br>
+                <input type = checkbox value = "2" name = "R[]">2<br>
+                <input type = checkbox value = "3" name = "R[]">3<br>
+                <input type = checkbox value = "4" name = "R[]">4<br>
+                <input type = checkbox value = "5" name = "R[]">5<br>
+            </p>
+        </div>
+
+        <!--second choose(only one)-->
+        <div class = "choice2">
+            <p>Please choose value of x<span class = "required">*</span>:<br>
+                <input type = radio value = "-4" name = "x">-4<br>
+                <input type = radio value = "-3" name = "x">-3<br>
+                <input type = radio value = "-2" name = "x">-2<br>
+                <input type = radio value = "-1" name = "x">-1<br>
+                <input type = radio value = "0" name = "x">0<br>
+                <input type = radio value = "1" name = "x">1<br>
+                <input type = radio value = "2" name = "x">2<br>
+                <input type = radio value = "3" name = "x">3<br>
+                <input type = radio value = "4" name = "x">4<br>
+            </p>
+        </div>
+
+        <!--input by yourself-->
+        <div class = "inputText">
+            <p>Please input value of y<span class = "required">*</span>(-5,3):<br>
+            <input id = "valueOfY" type = text name = "y"><br></p>
+        </div>
+
+        <!--submit-->
+        <div class = "submit">
+            <button type = "button" onclick="sendAll()">submit</button>
+        </div>
+
+        <div class = "output">
+            <p id="result">Result:</p>
+        </div>
+
+        <div class = "range">
+            <img loading = 'lazy' src = "request.png">
+        </div>
+    </div>
+</form>
+</body>
+</html>

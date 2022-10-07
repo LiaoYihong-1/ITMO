@@ -1,0 +1,88 @@
+#include <iostream>
+#include <stdbool.h>
+#include <map>
+#include <stack>
+#include <vector>
+using namespace std;
+//in order to input a string in right format to stoi()
+inline bool isNumber(const string str)
+{
+    for(int i = 0 ; i < str.size(); i++){
+        if(i==0){
+            if(str[i]!='-'&&!isdigit(str[i])){
+                return false;
+            }
+        }else{
+            if(!isdigit(str[i])){
+                return false;
+            }
+        }
+    }
+    return true;
+}
+void manager(map<string,stack<int>> maps){
+    string s;
+    while(true){
+        getline(cin,s);
+        if(s.empty()){
+            return;
+        }else if(!s.compare("{")){
+            manager(maps);
+        }else if(!s.compare("}")){
+            return;
+        }else{
+            size_t position = s.find("=",0);
+            string sub1 = s.substr(0,position);
+            string sub2 = s.substr(position+1,s.size()-position-1);
+            //a = 1
+            if(isNumber(sub2)){
+                if(!maps[sub1].empty()){
+                    maps[sub1].pop();
+                }
+                maps[sub1].emplace(stoi(sub2));
+            }
+            //a=b
+            else{
+                map<string,stack<int>>::iterator index_string_var1 = maps.find(sub1);
+                map<string,stack<int>>::iterator index_string_var2 = maps.find(sub2);
+                bool b1 = index_string_var1==maps.end();
+                bool b2 = index_string_var2==maps.end();
+                //if position of var not found
+                if(b1){
+                    stack<int> newstk;//create a new stack for new variable
+                    //var 2 not found or empty
+                    if(b2||index_string_var2->second.empty()){
+                        newstk.emplace(0);
+                        maps.insert(pair<string,stack<int>>(sub1,newstk));
+                        cout<<0<<endl;
+                    }else{//found and not empty
+                        newstk.emplace(index_string_var2->second.top());
+                        maps.insert(pair<string,stack<int>>(sub1,newstk));
+                        cout<<index_string_var2->second.top()<<endl;
+                    }
+                }else{//var 1 found
+                    if(b2||index_string_var2->second.empty()){//var 2 not found or empty
+                        if(!index_string_var1->second.empty()){
+                            index_string_var1->second.pop();
+                        }
+                        index_string_var1->second.emplace(0);
+                        cout<<0<<endl;
+                    }else{
+                        int read =index_string_var2->second.top();
+                        if(!index_string_var1->second.empty()){
+                            index_string_var1->second.pop();
+                        }
+                        index_string_var1->second.emplace(read);
+                        cout<<read<<endl;                       
+                    }
+                }
+            }
+        }
+    }
+}
+int main(){
+    map<string,stack<int>> maps;
+    //main
+    manager(maps);
+    return 0;
+}
