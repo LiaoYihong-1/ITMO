@@ -1,0 +1,7 @@
+help
+history
+executescript test3.txt
+executescript T.txt
+help
+add
+removeeyecolor black
