@@ -1,0 +1,48 @@
+['LD', "'H'"]
+['ST', 'OUTPUT']
+['LD', "'E'"]
+['ST', 'OUTPUT']
+['LD', "'L'"]
+['ST', 'OUTPUT']
+['LD', "'L'"]
+['ST', 'OUTPUT']
+['LD', "'O'"]
+['ST', 'OUTPUT']
+['LD', "','"]
+['ST', 'OUTPUT']
+['LD', "'W'"]
+['ST', 'OUTPUT']
+['LD', "'O'"]
+['ST', 'OUTPUT']
+['LD', "'R'"]
+['ST', 'OUTPUT']
+['LD', "'L'"]
+['ST', 'OUTPUT']
+['LD', "'D'"]
+['ST', 'OUTPUT']
+['HLT']
+DEBUG:root:{ Tick:3, BR:0, AC:34, SP:256, PS:0, IP:1, AR:1 }  LD 'H'
+DEBUG:root:{ Tick:6, BR:0, AC:34, SP:256, PS:0, IP:2, AR:2 }  ST OUTPUT
+DEBUG:root:{ Tick:9, BR:0, AC:5, SP:256, PS:0, IP:3, AR:3 }  LD 'e'
+DEBUG:root:{ Tick:12, BR:0, AC:5, SP:256, PS:0, IP:4, AR:4 }  ST OUTPUT
+DEBUG:root:{ Tick:15, BR:0, AC:12, SP:256, PS:0, IP:5, AR:5 }  LD 'l'
+DEBUG:root:{ Tick:18, BR:0, AC:12, SP:256, PS:0, IP:6, AR:6 }  ST OUTPUT
+DEBUG:root:{ Tick:21, BR:0, AC:12, SP:256, PS:0, IP:7, AR:7 }  LD 'l'
+DEBUG:root:{ Tick:24, BR:0, AC:12, SP:256, PS:0, IP:8, AR:8 }  ST OUTPUT
+DEBUG:root:{ Tick:27, BR:0, AC:15, SP:256, PS:0, IP:9, AR:9 }  LD 'o'
+DEBUG:root:{ Tick:30, BR:0, AC:15, SP:256, PS:0, IP:10, AR:10 }  ST OUTPUT
+DEBUG:root:{ Tick:33, BR:0, AC:66, SP:256, PS:0, IP:11, AR:11 }  LD ','
+DEBUG:root:{ Tick:36, BR:0, AC:66, SP:256, PS:0, IP:12, AR:12 }  ST OUTPUT
+DEBUG:root:{ Tick:39, BR:0, AC:23, SP:256, PS:0, IP:13, AR:13 }  LD 'w'
+DEBUG:root:{ Tick:42, BR:0, AC:23, SP:256, PS:0, IP:14, AR:14 }  ST OUTPUT
+DEBUG:root:{ Tick:45, BR:0, AC:15, SP:256, PS:0, IP:15, AR:15 }  LD 'o'
+DEBUG:root:{ Tick:48, BR:0, AC:15, SP:256, PS:0, IP:16, AR:16 }  ST OUTPUT
+DEBUG:root:{ Tick:51, BR:0, AC:18, SP:256, PS:0, IP:17, AR:17 }  LD 'r'
+DEBUG:root:{ Tick:54, BR:0, AC:18, SP:256, PS:0, IP:18, AR:18 }  ST OUTPUT
+DEBUG:root:{ Tick:57, BR:0, AC:12, SP:256, PS:0, IP:19, AR:19 }  LD 'l'
+DEBUG:root:{ Tick:60, BR:0, AC:12, SP:256, PS:0, IP:20, AR:20 }  ST OUTPUT
+DEBUG:root:{ Tick:63, BR:0, AC:4, SP:256, PS:0, IP:21, AR:21 }  LD 'd'
+DEBUG:root:{ Tick:66, BR:0, AC:4, SP:256, PS:0, IP:22, AR:22 }  ST OUTPUT
+DEBUG:root:{ Tick:68, BR:0, AC:4, SP:256, PS:0, IP:23, AR:23 }  HLT
+Output:
+Hello,world
