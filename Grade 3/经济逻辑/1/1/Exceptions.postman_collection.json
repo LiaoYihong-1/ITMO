@@ -1,0 +1,56 @@
+{
+	"info": {
+		"_postman_id": "8651b6a8-0e1e-4ff8-95bb-dc18c8f4d93c",
+		"name": "Exceptions",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25926653"
+	},
+	"item": [
+		{
+			"name": "AccountExisted",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Result:\",function(){\r",
+							"    pm.response.to.be.body(\"Account exist\");\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/register?name=liao&password=123&type=customer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"register"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "liao"
+						},
+						{
+							"key": "password",
+							"value": "123"
+						},
+						{
+							"key": "type",
+							"value": "customer"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

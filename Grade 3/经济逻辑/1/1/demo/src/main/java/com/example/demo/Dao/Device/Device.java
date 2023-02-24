@@ -17,4 +17,6 @@ public class Device {
     private Integer company;
     @Column(nullable = false,name="value")
     private Integer value;
+    @Column(nullable = false,name="available")
+    private Boolean available;
 }

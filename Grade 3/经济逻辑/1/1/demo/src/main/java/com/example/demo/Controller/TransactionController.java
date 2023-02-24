@@ -47,6 +47,7 @@ public class TransactionController {
             return Fail;
         }
         Device device = new Device();
+        device.setAvailable(true);
         device.setCompany(id);
         device.setValue(value);
         device.setType(type);
