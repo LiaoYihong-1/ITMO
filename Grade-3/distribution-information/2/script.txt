@@ -1,0 +1,28 @@
+ initdb -E ISO_8859_5 --locale=ru_RU.ISO8859-5 -D $HOME/u01/dir
+
+	Ихун , уведомление о новом сообщении в ИСУ ИТМО.
+От: Дмитрий Шешуков
+Тема: РСХД Задание на ЛР 2 вариант 48.
+ 
+
+• Директория кластера БД — $HOME/u01/dir1.	
+ssh -p 2222 s291007@se.ifmo.ru -Y -L8080:helios:8080
+ssh postgres0@pg112
+• Имя узла — pg112.
+• Имя пользователя — postgres0.
+.vP.S.dW
+启动/关闭
+pg_ctl -D $HOME/u01/dir1 -l logfile start/stop
+连接数据库
+psql -p 9048 -U postgres0 -d postgres -h localhost
+
+ssh postgres3@pg124
+Имя резервного узла — pg124.
+Имя пользователя — postgres3.
+Пароль для подключения к резервному узлу: IWhND1mO
+
+[postgres3@pg124 ~]$ PGDATA=$HOME/u01/dir1
+[postgres3@pg124 ~]$ PGENCODE=ISO_8859_5
+[postgres3@pg124 ~]$ PGLOCALE=ru_RU.ISO8859-5
+[postgres3@pg124 ~]$ export PGDATA PGENCODE PGLOCALE
+[postgres3@pg124 ~]$ initdb -E $PGENCODE --locale=$PGLOCALE -D $PGDATA

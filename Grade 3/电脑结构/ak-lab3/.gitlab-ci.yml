@@ -1,8 +1,0 @@
-lab3:
-  stage: test
-  image:
-    name: python-tools
-    entrypoint: [""]
-  script:
-    - python3-coverage run -m pytest test_machine.py
-    - python3-coverage run -m pytest test_translator.py
