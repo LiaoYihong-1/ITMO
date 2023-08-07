@@ -1,3 +1,3 @@
-Набор команд воплощает язык ассемблера, ориентированный на аккумулятор. Структура компьютера соответствует архитектуре фон Неймана. Этот проект выполняет моделирование компьютерных архитектур. Подробнее см. ссылку.
+The command set embodies accumulator-centric assembly language. The computer structure conforms to the von Neumann architecture. This project performs simulations of computer architectures. See link for details.
 
 Project: https://github.com/LiaoYihong-1/architecture-computer
